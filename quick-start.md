@@ -24,8 +24,11 @@ sudo dd if=images/coremark-bin-nodisk-flat of=/dev/sdc1
 
 
 
-./marshal -v -d build example-workloads/spec2006-workload/marshal-configs/spec06-int.json
-./marshal -v -d launch example-workloads/spec2006-workload/marshal-configs/spec06-int.json
+./marshal -v -d build example-workloads/spec2006-workload/marshal-configs/spec06-intspeed.json
+./marshal -v -d install -t prototype example-workloads/spec2006-workload/marshal-configs/spec06-intspeed.json
+./marshal -v -d launch example-workloads/spec2006-workload/marshal-configs/spec06-intspeed.json
+
+riscv64-unknown-elf-objcopy -S -O binary --change-addresses -0x80000000 spec06-intspeed-bin-nodisk spec06-intspeed-bin-nodisk-flat
 
 guestmount --pid-file guestmount.pid -a images/br-base.img -m /dev/sda disk-mount
 guestunmount disk-mount
