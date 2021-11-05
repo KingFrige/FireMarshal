@@ -21,6 +21,9 @@ screen -S FPGA_UART_CONSOLE /dev/ttyUSB1 115200
 
 sudo dd if=images/coremark-bin-nodisk-flat of=/dev/sdc1
 
+qemu-system-riscv64 -nographic -bios none -smp 4 -machine virt -m 16384 -kernel /home/stc/riscv/chipyard/software/firemarshal/images/coremark-bin-nodisk -object rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-device,rng=rng0 -device virtio-net-device,netdev=usernet -netdev user,id=usernet,hostfwd=tcp::35396-:22 -s -S
+
+qemu-system-riscv64 -nographic -bios none -smp 4 -machine virt -m 16384 -kernel /home/stc/riscv/chipyard/software/firemarshal/images/coremark-bin -object rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-device,rng=rng0 -device virtio-net-device,netdev=usernet -netdev user,id=usernet,hostfwd=tcp::53638-:22 -device virtio-blk-device,drive=hd0 -drive file=/home/stc/riscv/chipyard/software/firemarshal/images/coremark.img,format=raw,id=hd0 
 
 
 
@@ -29,6 +32,11 @@ sudo dd if=images/coremark-bin-nodisk-flat of=/dev/sdc1
 ./marshal -v -d launch example-workloads/spec2006-workload/marshal-configs/spec06-intspeed.json
 
 riscv64-unknown-elf-objcopy -S -O binary --change-addresses -0x80000000 spec06-intspeed-bin-nodisk spec06-intspeed-bin-nodisk-flat
+
+qemu-system-riscv64 -nographic -bios none -smp 4 -machine virt -m 16384 -kernel /home/stc/riscv/chipyard/software/firemarshal/images/spec06-intspeed-bin-nodisk -object rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-device,rng=rng0 -device virtio-net-device,netdev=usernet -netdev user,id=usernet,hostfwd=tcp::40342-:22 -s -S
+
+
+
 
 guestmount --pid-file guestmount.pid -a images/br-base.img -m /dev/sda disk-mount
 guestunmount disk-mount
