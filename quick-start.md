@@ -40,8 +40,7 @@ qemu-system-riscv64 -nographic -bios none -smp 4 -machine virt -m 16384 -kernel 
 
 
 # run-spec2006 workload
-sudo dd if=images/run-spec2006-bin-nodisk-flat of=/dev/sdc1 
+./marshal -v -d build example-workloads/run-spec2006-workload/marshal-configs/run-spec2006.json
+./marshal -v -d install -t prototype example-workloads/run-spec2006-workload/marshal-configs/run-spec2006.json
 
-./marshal -v -d build example-workloads/run-spec2006/marshal-configs/run-spec2006.json
-./marshal -v -d install -t prototype example-workloads/run-spec2006/marshal-configs/run-spec2006.json
-./marshal -v -d launch example-workloads/run-spec2006/marshal-configs/run-spec2006.json
+sudo dd if=images/run-spec2006-bin-nodisk-flat of=/dev/sdc1 
