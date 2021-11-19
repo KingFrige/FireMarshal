@@ -503,7 +503,8 @@ def genRunScript(command):
     with open(getOpt('command-script'), 'w') as s:
         s.write("#!/bin/sh\n")
         s.write(command + "\n")
-        s.write("sync; poweroff -f\n")
+        # s.write("sync; poweroff -f\n")
+        s.write("sync;\n")
 
     return getOpt('command-script')
 

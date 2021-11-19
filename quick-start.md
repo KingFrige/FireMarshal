@@ -11,7 +11,6 @@ sudo gdisk /dev/sdc
 sudo mkfs.hfsplus -v "PrototypeData" /dev/sdc2
 
 sudo dd if=images/br-base-bin-nodisk-flat of=/dev/sdc1
-sudo dd if=images/br-base.img of=/dev/sdc1
 
 screen -S FPGA_UART_CONSOLE /dev/ttyUSB1 115200
 
